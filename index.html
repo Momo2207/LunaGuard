@@ -280,34 +280,44 @@
     </footer>
 
     <div id="waitlistModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">×</span>
-            <h2 data-lang-key="modalTitle">Join the Early Access Waitlist</h2>
-            <p data-lang-key="modalDesc">Be the first to know when LunaGuard™ launches and get exclusive early bird offers.</p>
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2 data-lang-key="modalTitle">Join the Early Access Waitlist</h2>
+        <p data-lang-key="modalDesc">Be the first to know when LunaGuard™ launches and get exclusive early bird offers.</p>
+        
+        <form id="waitlistForm" action="https://formsubmit.co/lunaguard.tech@gmail.com" method="POST">
             
-            <form id="waitlistForm" action="https://formsubmit.co/12e94473a48695a53b36b3ef42794571" method="POST">
+            <!-- Name Field -->
+            <div class="form-group">
+                <label for="nameInput" class="sr-only" data-lang-key="modalNameLabel">Name</label>
+                <input type="text" id="nameInput" name="name" required data-lang-placeholder-key="modalNamePlaceholder">
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
                 <label for="emailInput" class="sr-only" data-lang-key="modalEmailLabel">Email Address</label>
                 <input type="email" id="emailInput" name="email" required data-lang-placeholder-key="modalEmailPlaceholder">
-                
-                <!-- Optional: Subject Line for the email you receive -->
-                <input type="hidden" name="_subject" value="New LunaGuard Waitlist Submission!">
-                
-                <!-- Optional: Custom "Thank You" Page URL (on your site) -->
-                <!-- Replace with your actual domain and page if you create one -->
-                <!-- <input type="hidden" name="_next" value="https://your-lunaguard-domain.com/thank-you.html"> -->
-                
-                <!-- IMPORTANT FOR PRODUCTION: Remove or set value="true" to enable reCAPTCHA. -->
-                <!-- For local testing, you can keep it false. -->
-                <input type="hidden" name="_captcha" value="false"> 
-
-                <button type="submit" class="cta-button" data-lang-key="modalSubmit">Notify Me</button>
-            </form>
-
-            <p class="modal-privacy-note" data-lang-key="modalPrivacy">We respect your privacy. Your email will never be shared or sold.</p>
+            </div>
             
-            <div id="form-status" role="status" aria-live="polite" style="margin-top: 1em;"></div> 
-        </div>
+            <input type="hidden" name="_subject" value="New LunaGuard Waitlist Submission!">
+            <!-- <input type="hidden" name="_captcha" value="false"> REMOVE FOR PRODUCTION -->
+
+            <div class="consent-checkbox-wrapper">
+                <input type="checkbox" id="gdprConsent" name="gdprConsent" required>
+                <label for="gdprConsent" class="consent-label">
+                    <span data-lang-key="modalGdprConsentText">I agree to receive emails about LunaGuard's early access and product updates, and I acknowledge the </span>
+                    <a href="/privacy-policy.html" target="_blank" data-lang-key="modalPrivacyPolicyLink">Privacy Policy</a>.
+                </label>
+            </div>
+
+            <button type="submit" class="cta-button" data-lang-key="modalSubmit">Notify Me</button>
+        </form>
+
+        <p class="modal-privacy-note" data-lang-key="modalPrivacy">We respect your privacy. Your email will never be shared or sold.</p>
+        
+        <div id="form-status" role="status" aria-live="polite" style="margin-top: 1em;"></div> 
     </div>
+</div>
 
     <script src="lang/translations.js"></script> 
     <script src="lang/easylanguage.js"></script> 
