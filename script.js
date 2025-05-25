@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalCloseButton = document.querySelector('#waitlistModal .close-button');
     const waitlistForm = document.getElementById('waitlistForm');
     const emailInput = document.getElementById('emailInput');
+    const nameInput = document.getElementById('nameInput'); // Get name input for validation
 
     function openModal() { if (modal) modal.style.display = 'block'; }
     function closeModal() { if (modal) modal.style.display = 'none'; }
@@ -20,25 +21,38 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault(); 
 
             const formData = new FormData(waitlistForm);
-            const email = emailInput.value.trim();
+            const nameValue = nameInput ? nameInput.value.trim() : '';
+            const emailValue = emailInput.value.trim();
             
             const easyLangActive = accessibilitySettings.easyLanguage;
-            let successMsg, invalidMsg;
+            let successMsgTmpl, invalidEmailMsg, nameRequiredMsg;
 
-            if (easyLangActive && typeof easyTranslations !== 'undefined' && easyTranslations[currentLanguage]?.modalAlertSuccess) {
-                successMsg = easyTranslations[currentLanguage].modalAlertSuccess;
-            } else {
-                successMsg = currentTranslations?.modalAlertSuccess || `Thank you! ${email} has been added to the waitlist.`;
+            // Get translated messages
+            if (easyLangActive && typeof easyTranslations !== 'undefined' && easyTranslations[currentLanguage]) {
+                successMsgTmpl = easyTranslations[currentLanguage].modalAlertSuccess;
+                invalidEmailMsg = easyTranslations[currentLanguage].modalAlertInvalidEmail;
+                nameRequiredMsg = easyTranslations[currentLanguage].modalAlertNameRequired;
+            } else if (currentTranslations) {
+                successMsgTmpl = currentTranslations.modalAlertSuccess;
+                invalidEmailMsg = currentTranslations.modalAlertInvalidEmail;
+                nameRequiredMsg = currentTranslations.modalAlertNameRequired;
             }
+            
+            // Fallback messages if translations are missing
+            successMsgTmpl = successMsgTmpl || "Thank you ${name}! Your email ${email} has been added to the waitlist.";
+            invalidEmailMsg = invalidEmailMsg || 'Please enter a valid email address.';
+            nameRequiredMsg = nameRequiredMsg || "Please enter your name.";
 
-            if (easyLangActive && typeof easyTranslations !== 'undefined' && easyTranslations[currentLanguage]?.modalAlertInvalidEmail) {
-                invalidMsg = easyTranslations[currentLanguage].modalAlertInvalidEmail;
-            } else {
-                invalidMsg = currentTranslations?.modalAlertInvalidEmail || 'Please enter a valid email address.';
+            // Client-side validation for name
+            if (!nameValue && nameInput && nameInput.hasAttribute('required')) { 
+                if (formStatusDiv) formStatusDiv.textContent = nameRequiredMsg;
+                if (formStatusDiv) formStatusDiv.style.color = 'red';
+                nameInput.focus();
+                return;
             }
-
-            if (!email || !validateEmail(email)) {
-                if (formStatusDiv) formStatusDiv.textContent = invalidMsg;
+            
+            if (!emailValue || !validateEmail(emailValue)) {
+                if (formStatusDiv) formStatusDiv.textContent = invalidEmailMsg;
                 if (formStatusDiv) formStatusDiv.style.color = 'red';
                 emailInput.focus();
                 return;
@@ -59,11 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                    const data = await response.json().catch(() => ({ success: true })); // Assume success if JSON parsing fails but response is OK
+                    const data = await response.json().catch(() => ({ success: true })); 
                     console.log("FormSubmit Response:", data); 
 
                     if (formStatusDiv) {
-                         formStatusDiv.textContent = successMsg.replace('${email}', email);
+                         const finalSuccessMsg = successMsgTmpl
+                            .replace('${name}', nameValue || 'Friend')
+                            .replace('${email}', emailValue);
+                         formStatusDiv.textContent = finalSuccessMsg;
                          formStatusDiv.style.color = 'var(--positive-color)';
                     }
                     waitlistForm.reset(); 
@@ -245,10 +262,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentYearSpan = document.getElementById('currentYear');
         if (currentYearSpan) {
             const footerText = getTranslationForKey("footerCopyright") || "";
-            if (footerText.includes("currentYear")) {
+            if (footerText.includes("currentYear")) { // Check if span is part of translated string
                 const newYearSpanInFooter = document.querySelector(".site-footer #currentYear"); 
                 if (newYearSpanInFooter) newYearSpanInFooter.textContent = new Date().getFullYear();
-            } else {
+            } else { // If not, assume it's a separate element that wasn't replaced by innerHTML
                  currentYearSpan.textContent = new Date().getFullYear(); 
             }
         }
