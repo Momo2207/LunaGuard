@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalCloseButton = document.querySelector('#waitlistModal .close-button');
     const waitlistForm = document.getElementById('waitlistForm');
     const emailInput = document.getElementById('emailInput');
-    const nameInput = document.getElementById('nameInput'); // Get name input for validation
+    const nameInput = document.getElementById('nameInput'); 
+    const gdprConsentCheckbox = document.getElementById('gdprConsent'); // Get GDPR checkbox for validation
 
     function openModal() { if (modal) modal.style.display = 'block'; }
     function closeModal() { if (modal) modal.style.display = 'none'; }
@@ -25,38 +26,52 @@ document.addEventListener('DOMContentLoaded', () => {
             const emailValue = emailInput.value.trim();
             
             const easyLangActive = accessibilitySettings.easyLanguage;
-            let successMsgTmpl, invalidEmailMsg, nameRequiredMsg;
+            let successMsgTmpl, invalidEmailMsg, nameRequiredMsg, gdprRequiredMsg;
 
             // Get translated messages
             if (easyLangActive && typeof easyTranslations !== 'undefined' && easyTranslations[currentLanguage]) {
                 successMsgTmpl = easyTranslations[currentLanguage].modalAlertSuccess;
                 invalidEmailMsg = easyTranslations[currentLanguage].modalAlertInvalidEmail;
                 nameRequiredMsg = easyTranslations[currentLanguage].modalAlertNameRequired;
+                gdprRequiredMsg = easyTranslations[currentLanguage].modalAlertGdprRequired; // New key
             } else if (currentTranslations) {
                 successMsgTmpl = currentTranslations.modalAlertSuccess;
                 invalidEmailMsg = currentTranslations.modalAlertInvalidEmail;
                 nameRequiredMsg = currentTranslations.modalAlertNameRequired;
+                gdprRequiredMsg = currentTranslations.modalAlertGdprRequired; // New key
             }
             
-            // Fallback messages if translations are missing
+            // Fallback messages if translations are missing for the current language or if objects are undefined
             successMsgTmpl = successMsgTmpl || "Thank you ${name}! Your email ${email} has been added to the waitlist.";
             invalidEmailMsg = invalidEmailMsg || 'Please enter a valid email address.';
             nameRequiredMsg = nameRequiredMsg || "Please enter your name.";
+            gdprRequiredMsg = gdprRequiredMsg || "Please agree to the terms and Privacy Policy to continue.";
+
 
             // Client-side validation for name
-            if (!nameValue && nameInput && nameInput.hasAttribute('required')) { 
+            if (nameInput && nameInput.hasAttribute('required') && !nameValue) { 
                 if (formStatusDiv) formStatusDiv.textContent = nameRequiredMsg;
                 if (formStatusDiv) formStatusDiv.style.color = 'red';
-                nameInput.focus();
+                if (nameInput) nameInput.focus();
                 return;
             }
             
+            // Client-side validation for email
             if (!emailValue || !validateEmail(emailValue)) {
                 if (formStatusDiv) formStatusDiv.textContent = invalidEmailMsg;
                 if (formStatusDiv) formStatusDiv.style.color = 'red';
                 emailInput.focus();
                 return;
             }
+
+            // Client-side validation for GDPR checkbox
+            if (gdprConsentCheckbox && gdprConsentCheckbox.hasAttribute('required') && !gdprConsentCheckbox.checked) {
+                if (formStatusDiv) formStatusDiv.textContent = gdprRequiredMsg;
+                if (formStatusDiv) formStatusDiv.style.color = 'red';
+                // gdprConsentCheckbox.focus(); // Focusing a checkbox can be a bit jarring, optional
+                return;
+            }
+
 
             if (formStatusDiv) {
                 formStatusDiv.textContent = 'Sending...'; 
@@ -73,12 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                    const data = await response.json().catch(() => ({ success: true })); 
+                    const data = await response.json().catch(() => ({ success: true, message: "Submission received (non-JSON OK response)." })); 
                     console.log("FormSubmit Response:", data); 
 
                     if (formStatusDiv) {
                          const finalSuccessMsg = successMsgTmpl
-                            .replace('${name}', nameValue || 'Friend')
+                            .replace('${name}', nameValue || 'Friend') // Provide a fallback if name is somehow empty despite validation
                             .replace('${email}', emailValue);
                          formStatusDiv.textContent = finalSuccessMsg;
                          formStatusDiv.style.color = 'var(--positive-color)';
@@ -89,19 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (formStatusDiv) formStatusDiv.textContent = ''; 
                     }, 3000); 
                 } else {
-                    const data = await response.json().catch(() => ({})); 
-                    console.error("FormSubmit Error Response:", data);
-                    let errorMessage = 'Oops! There was a problem submitting your form.';
-                    if (data && data.message) {
-                        errorMessage = data.message;
-                    } else if (data && data.error) { 
-                        errorMessage = data.error;
-                    }
+                    const data = await response.json().catch(() => ({ message: "An error occurred. Please try again."})); 
+                    console.error("FormSubmit Error Response:", data, "Status:", response.status, response.statusText);
+                    let errorMessage = data.message || `Error: ${response.status} - ${response.statusText}`;
                     if (formStatusDiv) formStatusDiv.textContent = errorMessage;
                     if (formStatusDiv) formStatusDiv.style.color = 'red';
                 }
             } catch (error) {
-                console.error('Form submission error:', error);
+                console.error('Form submission fetch/network error:', error);
                 if (formStatusDiv) {
                      formStatusDiv.textContent = 'Oops! There was a network problem. Please try again.';
                      formStatusDiv.style.color = 'red';
@@ -239,7 +249,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 "glance1", "glance2", "glance3", "glance4", "glance5", "glance6",
                 "earlyL1", "earlyL2", "earlyL3", "earlyL4", 
                 "footerCopyright", 
-                "navAccessibilityText", "accBoldFont", "accBWMode", "accLargeLetters", "accEasyLanguage"
+                "navAccessibilityText", "accBoldFont", "accBWMode", "accLargeLetters", "accEasyLanguage",
+                "modalGdprConsentText" // Added as it contains an <a> tag
             ];
 
             if (keysWithHTML.includes(key)) {
@@ -262,10 +273,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentYearSpan = document.getElementById('currentYear');
         if (currentYearSpan) {
             const footerText = getTranslationForKey("footerCopyright") || "";
-            if (footerText.includes("currentYear")) { // Check if span is part of translated string
+            if (footerText.includes("currentYear")) { 
                 const newYearSpanInFooter = document.querySelector(".site-footer #currentYear"); 
                 if (newYearSpanInFooter) newYearSpanInFooter.textContent = new Date().getFullYear();
-            } else { // If not, assume it's a separate element that wasn't replaced by innerHTML
+            } else { 
                  currentYearSpan.textContent = new Date().getFullYear(); 
             }
         }
