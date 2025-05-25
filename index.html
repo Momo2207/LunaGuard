@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Default language, will be updated by JS -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LunaGuard™ – Privacy-First Baby Monitoring</title> <!-- Will also be translated -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Lato:wght@400;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body class=""> 
+
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="logo">LunaGuard™</div>
+            <nav class="site-nav">
+                <div class="language-switcher">
+                    <button class="lang-btn" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="de">DE</button>
+                    <button class="lang-btn" data-lang="fr">FR</button>
+                </div>
+                <div class="accessibility-menu">
+                    <button id="accessibilityBtn" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-universal-access"></i> <span data-lang-key="navAccessibilityText">Accessibility</span>
+                    </button>
+                    <ul id="accessibilityDropdown" class="accessibility-dropdown" role="menu" hidden>
+                        <li role="menuitemcheckbox" aria-checked="false">
+                            <label for="acc-bold-font">
+                                <input type="checkbox" id="acc-bold-font"> <span data-lang-key="accBoldFont">Bold Font</span>
+                            </label>
+                        </li>
+                        <li role="menuitemcheckbox" aria-checked="false">
+                            <label for="acc-bw-mode">
+                                <input type="checkbox" id="acc-bw-mode"> <span data-lang-key="accBWMode">Black & White</span>
+                            </label>
+                        </li>
+                        <li role="menuitemcheckbox" aria-checked="false">
+                            <label for="acc-large-letters">
+                                <input type="checkbox" id="acc-large-letters"> <span data-lang-key="accLargeLetters">Large Letters</span>
+                            </label>
+                        </li>
+                        <li role="menuitemcheckbox" aria-checked="false">
+                            <label for="acc-easy-language">
+                                <input type="checkbox" id="acc-easy-language"> <span data-lang-key="accEasyLanguage">Easy Language</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 data-lang-key="heroTitle">Privacy-First Baby Monitoring, Redefined with LunaGuard™</h1>
+                    <p class="tagline" data-lang-key="heroTagline">Calm Nights. Real Peace of Mind.</p>
+                    <p class="intro-text" data-lang-key="heroIntro">
+                        Introducing LunaGuard™: The world’s first contact-free baby health monitor that truly puts your family’s privacy and comfort first. No cameras. No wearables. No apps. No cloud. Just pure, effortless reassurance—delivered locally, instantly, and securely.
+                    </p>
+                    <button class="cta-button open-modal-button" data-lang-key="heroCTA">Join Early Access Waitlist</button>
+                    <p class="cta-subtext" data-lang-key="heroCTASubtext">Be first to know. Limited pre-launch spots.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-lunaguard" class="content-section">
+            <div class="container two-column-layout">
+                <div class="column-text">
+                    <h2 data-lang-key="whyTitle">Why LunaGuard?</h2>
+                    <p data-lang-key="whyP1">Every parent knows those anxious midnight moments—waking up just to check if your baby’s chest is rising and falling. Most monitors promise peace of mind, but bring new worries: hidden cameras, subscription fees, invasive apps, or awkward gadgets that disrupt your child’s sleep.</p>
+                    <p><strong data-lang-key="whyP2Strong">LunaGuard changes everything, bringing gentle reassurance.</strong></p>
+                </div>
+                <div class="column-image">
+                    <img src="Images/Mutter über dem schlafenden Baby.png" alt="Worried parent gently checking on sleeping baby" class="rounded-image" data-lang-alt-key="whyImgAlt">
+                </div>
+            </div>
+        </section>
+
+        <section id="not-existed" class="content-section bg-soft-accent">
+            <div class="container">
+                <h2 data-lang-key="notExistedTitle">Why Hasn’t This Existed Before?</h2>
+                <p data-lang-key="notExistedP1">For too long, parents have had to pick between privacy and peace of mind. The market was filled with baby monitors that either required cameras in the nursery, wearables on tiny wrists and ankles, or constant internet connections. None of these truly solved the biggest need: knowing your baby is safe, without exposing your home to outside risks.</p>
+                 <figure class="centered-image-container">
+                    <img src="Images/Vater und Baby im Morgenlicht.png" alt="Reassured parent smiling at sleeping baby with LunaGuard visible" class="rounded-image large-image" data-lang-alt-key="notExistedImgAlt">
+                    <figcaption data-lang-key="notExistedFigcaption">Real peace of mind, with privacy at its core.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section id="stands-apart" class="content-section">
+            <div class="container">
+                <h2 data-lang-key="standsApartTitle">How LunaGuard™ Stands Apart</h2>
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th data-lang-key="tableOthersOffer">What Others Offer</th>
+                                <th class="lunaguard-col" data-lang-key="tableLunaGuardDiff">The LunaGuard™ Difference</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-lang-key="tableOthersCam">Monitors that use cameras</td>
+                                <td data-lang-key="tableLunaGuardCam"><i class="fas fa-video-slash icon-negative"></i> No camera. No images or video—ever.</td>
+                            </tr>
+                            <tr>
+                                <td data-lang-key="tableOthersWearables">Wearables for baby</td>
+                                <td data-lang-key="tableLunaGuardWearables"><i class="fas fa-baby icon-positive"></i> Nothing attached to your child.</td>
+                            </tr>
+                            <tr>
+                                <td data-lang-key="tableOthersWifi">Devices that need Wi-Fi or apps</td>
+                                <td data-lang-key="tableLunaGuardWifi"><i class="fas fa-signal-slash icon-positive"></i> Works 100% offline, no phone required.</td>
+                            </tr>
+                            <tr>
+                                <td data-lang-key="tableOthersCloud">Systems that send data to the cloud</td>
+                                <td data-lang-key="tableLunaGuardCloud"><i class="fas fa-shield-alt icon-positive"></i> All data stays safely inside your home.</td>
+                            </tr>
+                            <tr>
+                                <td data-lang-key="tableOthersFees">Monthly subscriptions or hidden fees</td>
+                                <td data-lang-key="tableLunaGuardFees"><i class="fas fa-file-invoice-dollar icon-positive"></i> One-time purchase, no ongoing costs.</td>
+                            </tr>
+                            <tr>
+                                <td data-lang-key="tableOthersSetup">Complicated setups</td>
+                                <td data-lang-key="tableLunaGuardSetup"><i class="fas fa-toggle-on icon-positive"></i> Ready to use with just one button.</td>
+                            </tr>
+                            <tr>
+                                <td data-lang-key="tableOthersAlerts">Alerts that only go to your phone</td>
+                                <td data-lang-key="tableLunaGuardAlerts"><i class="fas fa-bell icon-positive"></i> Instant alerts, even if your phone is off or mute.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="unique-features" class="content-section bg-soft-accent">
+            <div class="container">
+                <h2 data-lang-key="uniqueTitle">What Makes LunaGuard™ Unique?</h2>
+                <div class="features-list-cols">
+                    <ul class="icon-feature-list">
+                        <li>
+                            <i class="fas fa-hands-helping"></i>
+                            <div>
+                                <h3 data-lang-key="uniqueF1Title">Truly contact-free</h3>
+                                <p data-lang-key="uniqueF1Desc">Watches over your baby from a distance—nothing to wear, nothing to charge repeatedly.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-user-secret"></i>
+                            <div>
+                                <h3 data-lang-key="uniqueF2Title">No cameras or microphones</h3>
+                                <p data-lang-key="uniqueF2Desc">Your baby’s privacy (and yours) is never at risk.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-plug-circle-xmark"></i>
+                            <div>
+                                <h3 data-lang-key="uniqueF3Title">Works offline</h3>
+                                <p data-lang-key="uniqueF3Desc">Even in homes without Wi-Fi, LunaGuard gives you peace of mind.</p>
+                            </div>
+                        </li>
+                        <li>
+                           <i class="fas fa-house-chimney-medical"></i>
+                            <div>
+                                <h3 data-lang-key="uniqueF4Title">Gentle local alerts</h3>
+                                <p data-lang-key="uniqueF4Desc">If something needs your attention, you’ll know right away—no app or notifications to miss.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-piggy-bank"></i>
+                            <div>
+                                <h3 data-lang-key="uniqueF5Title">No subscriptions, ever</h3>
+                                <p data-lang-key="uniqueF5Desc">You own the device, you control your experience.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="closing-gap-statement">
+                    <h3 data-lang-key="closesGapTitle">LunaGuard™ Closes the Gap</h3>
+                    <p data-lang-key="closesGapDesc">Most baby monitors force you to choose between features—privacy, ease, peace of mind, or cost. LunaGuard™ is the first to bring them all together in one simple, reliable, and private package.</p>
+                </div>
+                <figure class="centered-image-container top-margin">
+                    <img src="Images/LunaGuard Produktreihe auf neutralem Hintergrund.png" alt="LunaGuard device, beacon, cable, and packaging" class="rounded-image large-image" data-lang-alt-key="closesGapImgAlt">
+                    <figcaption data-lang-key="closesGapFigcaption">Everything you need for peace of mind, beautifully designed.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section id="about-creator" class="content-section">
+            <div class="container two-column-layout reverse-columns">
+                <div class="column-text">
+                    <h2 data-lang-key="aboutTitle">Who’s Behind LunaGuard™?</h2>
+                    <p data-lang-key="aboutP1">LunaGuard is designed by Maurice Böhm—a specialist in developing safe, high-reliability products for industries where trust is everything. Seeing how the market forced privacy-conscious parents into choosing between convenience, safety, and data security, he set out to build a better way.</p>
+                    <p data-lang-key="aboutP2">LunaGuard is the result: a device born from research, tested with real families, and engineered with European privacy standards at its core.</p>
+                </div>
+                <div class="column-image">
+                     <img src="Images/LunaGuard_ Sanfte Eleganz in Nahaufnahme.png" alt="Close-up of the LunaGuard device showing its gentle light" class="rounded-image large-image" data-lang-alt-key="aboutImgAlt">
+                </div>
+            </div>
+        </section>
+
+        <section id="at-a-glance" class="content-section bg-soft-accent">
+            <div class="container">
+                <h2 data-lang-key="glanceTitle">The LunaGuard™ Difference—At a Glance</h2>
+                <div class="two-column-layout">
+                    <div class="column-text">
+                        <ul class="glance-list">
+                            <li data-lang-key="glance1"><strong>Contact-Free Sensing:</strong> Proven mmWave radar, 94% detection accuracy (lab tested).</li>
+                            <li data-lang-key="glance2"><strong>Privacy First:</strong> No camera. No microphone. No cloud. No personal data collected.</li>
+                            <li data-lang-key="glance3"><strong>Truly Offline:</strong> No Wi-Fi or Bluetooth needed—works everywhere.</li>
+                            <li data-lang-key="glance4"><strong>Instant Local Alerts:</strong> Reliable bedside beacon for parent notification.</li>
+                            <li data-lang-key="glance5"><strong>Safe for Baby:</strong> Ultra-low RF output, soft LED night mode, CE-compliant.</li>
+                            <li data-lang-key="glance6"><strong>One-Time Purchase:</strong> No subscriptions, ever.</li>
+                        </ul>
+                    </div>
+                    <div class="column-image">
+                        <img src="Images/LunaGuard™ Nachttischleuchte im sanften Licht.png" alt="LunaGuard device on its bedside beacon stand" class="rounded-image" data-lang-alt-key="glanceImgAlt">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="early-access" class="content-section text-center">
+            <div class="container">
+                <h2 data-lang-key="earlyAccessTitle">Early Access—Why Sign Up?</h2>
+                <ul class="feature-list-simple text-left-center">
+                    <li data-lang-key="earlyL1"><strong>Priority Access:</strong> Get notified as soon as LunaGuard is ready for limited pre-order.</li>
+                    <li data-lang-key="earlyL2"><strong>Exclusive Offers:</strong> Early supporters will have access to pilot units and special pricing.</li>
+                    <li data-lang-key="earlyL3"><strong>Have a Voice:</strong> Share feedback to help shape LunaGuard as we finalize production.</li>
+                    <li data-lang-key="earlyL4"><strong>Peace of Mind, First:</strong> Experience a new era of private, calm baby monitoring—months before the mainstream.</li>
+                </ul>
+                <button class="cta-button open-modal-button" data-lang-key="earlyCTA">Sign Up for Early Access</button>
+                <p class="cta-subtext" data-lang-key="earlyCTASubtext">We respect your privacy. Your email will never be shared or sold.</p>
+            </div>
+        </section>
+
+        <section id="faq" class="content-section bg-soft-accent">
+            <div class="container">
+                <h2 data-lang-key="faqTitle">Frequently Asked Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3 data-lang-key="faq1Q">Is LunaGuard medically certified?</h3>
+                        <p data-lang-key="faq1A">No, LunaGuard is a wellness device for added peace of mind—not a medical device.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 data-lang-key="faq2Q">Will LunaGuard work in any nursery?</h3>
+                        <p data-lang-key="faq2A">Yes. The device is designed for typical European homes, with safe RF levels and reliable room-to-room range.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 data-lang-key="faq3Q">How do I know LunaGuard is safe?</h3>
+                        <p data-lang-key="faq3A">All components and RF emissions are tested to strict EU standards. No camera. No audio. No cloud. Ever.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 data-lang-key="faq4Q">When can I order?</h3>
+                        <p data-lang-key="faq4A">Join the waitlist and be the first to know when LunaGuard is available for pre-order and limited release.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="promise" class="content-section text-center">
+            <div class="container">
+                <h2 data-lang-key="promiseTitle">Our Promise</h2>
+                <p data-lang-key="promiseP1">We’re building LunaGuard™ to be as trustworthy as the peace of mind it provides. No gimmicks, no tracking, no compromises—just the reassurance you deserve.</p>
+                <p data-lang-key="promiseP2">Join our waitlist today and become part of a movement to reclaim privacy in parenting.</p>
+                <button class="cta-button open-modal-button" data-lang-key="promiseCTA">Join the LunaGuard Early Access List</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p data-lang-key="footerCopyright">© <span id="currentYear"></span> LunaGuard™. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="waitlistModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <h2 data-lang-key="modalTitle">Join the Early Access Waitlist</h2>
+            <p data-lang-key="modalDesc">Be the first to know when LunaGuard™ launches and get exclusive early bird offers.</p>
+            
+            <form id="waitlistForm" action="https://formsubmit.co/lunaguard.tech@gmail.com" method="POST">
+                <label for="emailInput" class="sr-only" data-lang-key="modalEmailLabel">Email Address</label>
+                <input type="email" id="emailInput" name="email" required data-lang-placeholder-key="modalEmailPlaceholder">
+                
+                <!-- Optional: Subject Line for the email you receive -->
+                <input type="hidden" name="_subject" value="New LunaGuard Waitlist Submission!">
+                
+                <!-- Optional: Custom "Thank You" Page URL (on your site) -->
+                <!-- Replace with your actual domain and page if you create one -->
+                <!-- <input type="hidden" name="_next" value="https://your-lunaguard-domain.com/thank-you.html"> -->
+                
+                <!-- IMPORTANT FOR PRODUCTION: Remove or set value="true" to enable reCAPTCHA. -->
+                <!-- For local testing, you can keep it false. -->
+                <input type="hidden" name="_captcha" value="false"> 
+
+                <button type="submit" class="cta-button" data-lang-key="modalSubmit">Notify Me</button>
+            </form>
+
+            <p class="modal-privacy-note" data-lang-key="modalPrivacy">We respect your privacy. Your email will never be shared or sold.</p>
+            
+            <div id="form-status" role="status" aria-live="polite" style="margin-top: 1em;"></div> 
+        </div>
+    </div>
+
+    <script src="lang/translations.js"></script> 
+    <script src="lang/easylanguage.js"></script> 
+    <script src="script.js"></script>
+</body>
+</html>

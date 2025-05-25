@@ -1,0 +1,657 @@
+:root {
+    --primary-color: #8FA08A; /* Muted Sage Green */
+    --primary-hover-color: #798872; /* Slightly darker sage */
+    
+    --hero-text-color: #5a514a; /* Dark brown/grey */
+    --hero-tagline-color: #7a716a; /* Lighter brown/grey */
+    --hero-cta-text-color: #FFFFFF;
+
+    --text-color: #5D534A; /* Warm Dark Gray */
+    --light-text-color: #8c7f74; /* Lighter Warm Gray */
+    
+    --bg-color: #FCFBF8; /* Very Light Cream/Off-white */
+    --bg-soft-accent: #F5F1E8; /* Warm Beige/Cream */
+    --border-color: #EAE0D1; /* Soft border color */
+    --border-light-color: #F0EAE0; /* Lighter border */
+    
+    --positive-color: #63A375; /* Gentle green */
+    --negative-color: #B95C50; /* Gentle red/brown */
+    
+    --heading-font: 'Poppins', sans-serif;
+    --body-font: 'Lato', sans-serif;
+    --border-radius: 12px;
+    --soft-shadow: 0 6px 24px rgba(93, 83, 74, 0.08);
+}
+
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--body-font);
+    line-height: 1.8;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    font-size: 17px; 
+    transition: background-color 0.3s ease, color 0.3s ease, font-size 0.3s ease; 
+}
+
+.container {
+    width: 90%; 
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px; /* Standard padding */
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font);
+    font-weight: 600;
+    margin-bottom: 0.75em;
+    color: var(--text-color);
+    line-height: 1.3;
+}
+h1 { font-size: 2.6rem; } 
+h2 { font-size: 2rem; text-align: center; margin-bottom: 1.8em; } 
+h3 { font-size: 1.3rem; color: var(--primary-color); font-weight: 600; } 
+p { margin-bottom: 1.2em; }
+a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
+a:hover { color: var(--primary-hover-color); text-decoration: underline; }
+
+/* Header */
+.site-header {
+    padding: 1.5em 0; 
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+}
+.site-header .container.header-container { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 1em; 
+}
+.logo {
+    font-family: var(--heading-font);
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    flex-shrink: 0; 
+}
+
+/* Navigation & Accessibility Menu */
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 1em; 
+    flex-wrap: wrap; 
+    justify-content: flex-end; 
+}
+.language-switcher {
+    display: flex;
+    gap: 0.5em; 
+}
+.language-switcher .lang-btn {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.4em 0.8em;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    font-family: var(--body-font);
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-size: 0.9rem; 
+}
+.language-switcher .lang-btn:hover,
+.language-switcher .lang-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.accessibility-menu {
+    position: relative;
+}
+#accessibilityBtn {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.4em 0.8em;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    font-family: var(--body-font);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+#accessibilityBtn:hover, 
+#accessibilityBtn[aria-expanded="true"] {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+#accessibilityBtn i {
+    font-size: 1.1em;
+}
+
+.accessibility-dropdown {
+    list-style: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--soft-shadow);
+    padding: 0.8em;
+    margin-top: 0.5em;
+    z-index: 100;
+    min-width: 200px;
+    text-align: left; 
+}
+.accessibility-dropdown[hidden] {
+    display: none;
+}
+.accessibility-dropdown li {
+    padding: 0.6em 0.2em;
+}
+.accessibility-dropdown li + li {
+    border-top: 1px solid var(--border-light-color);
+}
+.accessibility-dropdown label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--text-color); 
+}
+.accessibility-dropdown input[type="checkbox"] {
+    margin-right: 0.8em;
+    accent-color: var(--primary-color);
+    width: 16px;
+    height: 16px;
+}
+
+/* --- ACCESSIBILITY STATE STYLES --- */
+/* 1. Bold Font */
+body.acc-boldFont, 
+body.acc-boldFont p,
+body.acc-boldFont li,
+body.acc-boldFont td,
+body.acc-boldFont th,
+body.acc-boldFont label,
+body.acc-boldFont button,
+body.acc-boldFont input, 
+body.acc-boldFont a,
+body.acc-boldFont figcaption,
+body.acc-boldFont span { 
+    font-weight: 700 !important; 
+}
+body.acc-boldFont h1,
+body.acc-boldFont h2,
+body.acc-boldFont h3,
+body.acc-boldFont h4,
+body.acc-boldFont h5,
+body.acc-boldFont h6 {
+    font-weight: 800 !important; 
+}
+body.acc-boldFont strong { 
+    font-weight: 900 !important; 
+}
+
+/* 2. Black & White Mode */
+body.acc-bwMode { 
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+}
+body.acc-bwMode img {  
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+}
+
+/* 3. Large Letters */
+body.acc-largeLetters { 
+    font-size: 120% !important; 
+    line-height: 1.9 !important; 
+}
+body.acc-largeLetters h1 { font-size: calc(2.6rem * 1.2) !important; } 
+body.acc-largeLetters h2 { font-size: calc(2rem * 1.2) !important; }   
+body.acc-largeLetters h3 { font-size: calc(1.3rem * 1.2) !important; }   
+body.acc-largeLetters .hero-section .tagline { font-size: calc(1.45rem * 1.2) !important; }
+body.acc-largeLetters .hero-section .intro-text { font-size: calc(1rem * 1.2) !important; }
+body.acc-largeLetters .cta-button { font-size: calc(1.05rem * 1.2) !important; padding: calc(0.9em * 1.1) calc(2em * 1.1); } 
+body.acc-largeLetters .comparison-table { font-size: calc(0.95rem * 1.15) !important; } 
+body.acc-largeLetters .icon-feature-list p { font-size: calc(0.95rem * 1.15) !important; }
+
+/* 4. Easy Language (Placeholder for additional styling if needed) */
+body.acc-easyLanguage { 
+    /* e.g., letter-spacing: 0.5px; word-spacing: 2px; */
+}
+/* --- END ACCESSIBILITY STATE STYLES --- */
+
+/* Hero Section */
+.hero-section {
+    position: relative; 
+    overflow: hidden; 
+    z-index: 0; 
+    min-height: 75vh; 
+    padding: 5em 0; 
+    display: flex;
+    align-items: center; 
+    color: var(--hero-text-color); 
+}
+
+.hero-section::before { 
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('Images/hero.png'); 
+    background-size: cover;
+    background-position: center center; 
+    background-repeat: no-repeat;
+    z-index: -1; 
+    transition: opacity 0.3s ease, filter 0.3s ease; 
+}
+
+.hero-section .container {
+    display: flex; 
+    justify-content: flex-start; 
+    position: relative; 
+    z-index: 1;
+}
+.hero-content {
+    max-width: 48%; 
+    text-align: left;
+    padding-right: 2em; 
+    position: relative; 
+    z-index: 1;
+}
+.hero-section h1 {
+    font-family: var(--heading-font);
+    font-size: 2.9rem; 
+    font-weight: 600; 
+    color: var(--hero-text-color);
+    line-height: 1.25;
+    margin-bottom: 0.5em;
+}
+.hero-section .tagline {
+    font-size: 1.45rem; 
+    font-weight: 400; 
+    color: var(--hero-tagline-color);
+    margin-bottom: 1.5em;
+}
+.hero-section .intro-text {
+    font-size: 1rem; 
+    color: var(--hero-tagline-color); 
+    line-height: 1.7;
+    margin-bottom: 2em;
+    max-width: 520px; 
+}
+.hero-section .cta-subtext {
+    font-size: 0.9rem;
+    color: var(--hero-tagline-color); 
+    margin-top: 1em;
+}
+
+/* General CTA Button Style */
+.cta-button {
+    background-color: var(--primary-color);
+    color: var(--hero-cta-text-color);
+    padding: 0.9em 2em;
+    border: none;
+    border-radius: 50px;
+    font-family: var(--heading-font);
+    font-size: 1.05rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, font-size 0.3s ease, padding 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(143, 160, 138, 0.3);
+}
+.cta-button:hover {
+    background-color: var(--primary-hover-color);
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+/* Content Sections */
+.content-section { padding: 4.5em 0; }
+.content-section.bg-soft-accent { background-color: var(--bg-soft-accent); }
+.content-section h2 { color: var(--text-color); } 
+
+/* Two Column Layout */
+.two-column-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5em;
+    align-items: center;
+}
+.two-column-layout .column-text { flex: 1; max-width: 600px; }
+.two-column-layout .column-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 450px;
+}
+.two-column-layout .column-image img { width: 100%; height: auto; }
+
+/* Image Styles */
+.rounded-image {
+    border-radius: var(--border-radius);
+    box-shadow: var(--soft-shadow);
+    display: block;
+    max-width: 100%; 
+    height: auto;     
+}
+.large-image {
+    max-width: 700px; 
+    margin-left: auto;
+    margin-right: auto;
+}
+.centered-image-container { 
+    text-align: center; 
+    margin-top: 2em; 
+    width: 100%; 
+    max-width: 100%; 
+    overflow: visible; /* Added this from previous debug attempts, generally good */
+}
+.centered-image-container img { 
+    margin-bottom: 0.8em; 
+}
+.centered-image-container figcaption {
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+    font-style: italic;
+}
+.top-margin { margin-top: 3em; }
+
+/* Comparison Table */
+.comparison-table-wrapper {
+    overflow-x: auto; 
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--soft-shadow);
+    margin: 0 auto;
+    max-width: 900px;
+}
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+.comparison-table th, .comparison-table td {
+    padding: 1em 1.2em;
+    text-align: left;
+    border-bottom: 1px solid var(--border-light-color);
+}
+.comparison-table th {
+    background-color: var(--bg-soft-accent);
+    font-family: var(--heading-font);
+    font-weight: 600;
+    color: var(--text-color);
+}
+.comparison-table thead th:first-child { border-top-left-radius: var(--border-radius); }
+.comparison-table thead th:last-child { border-top-right-radius: var(--border-radius); }
+.comparison-table tbody tr:last-child td { border-bottom: none; }
+.comparison-table td { vertical-align: middle; }
+.comparison-table .lunaguard-col {
+    font-weight: 500;
+    color: var(--text-color);
+    background-color: rgba(143, 160, 138, 0.05); 
+}
+.comparison-table .lunaguard-col i {
+    margin-right: 0.6em;
+    font-size: 1.1em;
+    width: 1.2em; 
+    text-align: center;
+}
+.comparison-table .icon-positive { color: var(--positive-color); }
+.comparison-table .icon-negative { color: var(--negative-color); }
+
+
+/* Icon Feature List */
+.features-list-cols { max-width: 800px; margin: 0 auto 2em auto; }
+.icon-feature-list { list-style: none; padding: 0; }
+.icon-feature-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.5em; 
+    padding: 1.5em;
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+}
+.icon-feature-list i {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-right: 1.2em;
+    margin-top: 0.1em; 
+    width: 2em; 
+    text-align: center;
+}
+.icon-feature-list h3 { 
+    margin-top: 0;
+    margin-bottom: 0.3em;
+    font-size: 1.15rem; 
+    color: var(--text-color); 
+}
+.icon-feature-list p { margin-bottom: 0; font-size: 0.95rem; line-height: 1.6; }
+
+/* Closing Gap Statement */
+.closing-gap-statement { text-align: center; max-width: 700px; margin: 3em auto 0 auto; }
+.closing-gap-statement h3 { color: var(--text-color); margin-bottom: 0.5em; } 
+
+/* Feature List Simple (for #early-access section) */
+.feature-list-simple {
+    list-style: none;
+    padding-left: 0;
+    max-width: 650px; 
+    margin: 0 auto 1.5em auto;
+}
+.feature-list-simple li {
+    padding-left: 2.2em; 
+    position: relative;
+    margin-bottom: 1em; 
+    font-size: 1rem;
+    line-height: 1.6; 
+    display: flex; 
+    align-items: flex-start; 
+}
+.feature-list-simple li::before {
+    content: '✓';
+    color: var(--primary-color);
+    position: absolute;
+    left: 0.5em; 
+    font-weight: bold;
+    font-size: 1.2em; 
+    top: 0.1em; 
+}
+.text-left-center { 
+    text-align: left;
+}
+
+
+/* At a Glance List */
+.glance-list { list-style: none; padding-left: 0; }
+.glance-list li { padding: 0.8em 0; border-bottom: 1px solid var(--border-color); font-size: 1rem; }
+.glance-list li:last-child { border-bottom: none; }
+.glance-list strong { color: var(--primary-color); font-weight: 600; }
+
+/* FAQ Section */
+.faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2em; }
+.faq-item { padding-bottom: 1em; }
+.faq-item h3 { margin-bottom: 0.3em; font-size: 1.15rem; } 
+
+/* Footer */
+.site-footer { background-color: var(--text-color); color: var(--bg-soft-accent); padding: 2.5em 0; text-align: center; font-size: 0.9rem; }
+.site-footer a { color: var(--primary-color); }
+
+/* Modal Styles */
+.modal {
+    display: none; position: fixed; z-index: 1000;
+    left: 0; top: 0; width: 100%; height: 100%;
+    overflow: auto; background-color: rgba(93, 83, 74, 0.6);
+}
+.modal-content {
+    background-color: var(--bg-color);
+    margin: 10% auto; padding: 35px;
+    border: none; border-radius: var(--border-radius);
+    width: 90%; max-width: 500px; position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    animation: fadeInModal 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+@keyframes fadeInModal {
+    from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.close-button {
+    color: var(--light-text-color); float: right;
+    font-size: 30px; font-weight: bold; line-height: 0.8;
+    cursor: pointer; 
+    user-select: none; 
+}
+.close-button:hover, .close-button:focus {
+    color: var(--text-color); text-decoration: none; 
+}
+.modal-content h2 { text-align: left; margin-top: 0; margin-bottom: 0.5em; font-size: 1.7rem; } 
+.modal-content p { margin-bottom: 1.5em; font-size: 1rem; }
+#waitlistForm input[type="email"] {
+    width: 100%; padding: 14px 18px; margin-bottom: 18px;
+    border: 1px solid var(--border-color); border-radius: var(--border-radius);
+    font-size: 1rem; font-family: var(--body-font); background-color: #fff;
+}
+#waitlistForm input[type="email"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(143, 160, 138, 0.2);
+    outline: none;
+}
+#waitlistForm .cta-button { width: 100%; }
+.modal-privacy-note { font-size: 0.85rem; color: var(--light-text-color); text-align: center; margin-top: 1.2em; margin-bottom: 0; }
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+
+/* Responsive Adjustments */
+@media (min-width: 769px) {
+    .two-column-layout { flex-direction: row; gap: 3.5em; }
+    .two-column-layout.reverse-columns { flex-direction: row-reverse; }
+    .two-column-layout .column-text { text-align: left; }
+    .two-column-layout .column-text h2 { text-align: left; }
+    .icon-feature-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 1.5em;
+    }
+    .icon-feature-list li { margin-bottom: 0; }
+}
+
+@media (max-width: 992px) { 
+    .hero-content { max-width: 60%; padding-right: 1em; }
+    .hero-section h1 { font-size: 2.5rem; }
+    .hero-section .tagline { font-size: 1.3rem; }
+}
+
+@media (max-width: 768px) { 
+    body { font-size: 16px; } 
+    h1 { font-size: 2.1rem; } 
+    h2 { font-size: 1.7rem; } 
+    
+    .site-header .container.header-container {
+        flex-direction: column;
+        align-items: center; 
+    }
+    .site-nav {
+        justify-content: center; 
+        width: 100%;
+        gap: 0.8em; 
+    }
+    .accessibility-dropdown {
+        left: 50%; 
+        transform: translateX(-50%);
+        right: auto;
+        min-width: 250px; 
+    }
+
+    .hero-section::before { 
+        background-position: 70% center; 
+        opacity: 0.2; 
+        filter: blur(4px); 
+        -webkit-filter: blur(4px); 
+    }
+
+    .hero-section {
+        min-height: auto; padding: 4em 0;
+        text-align: center; 
+    }
+    .hero-section .container { justify-content: center; }
+    .hero-content {
+        max-width: 90%;
+        text-align: center; 
+        padding-right: 0;
+        margin: 0 auto;
+    }
+    
+    /* Large Letters on mobile */
+    body.acc-largeLetters { font-size: 120% !important; } 
+    body.acc-largeLetters h1 { font-size: calc(2.1rem * 1.2) !important; }
+    body.acc-largeLetters h2 { font-size: calc(1.7rem * 1.2) !important; }
+    body.acc-largeLetters h3 { font-size: calc(1.3rem * 1.2) !important; }
+
+    .content-section { padding: 3em 0; }
+    .modal-content { margin: 15% auto; width: 90%; padding: 25px; }
+    .modal-content h2 { font-size: 1.5rem; }
+
+    /* Ensure image containers within content sections are flexible */
+    .centered-image-container,
+    .column-image { /* column-image is used in other sections */
+        overflow: visible; /* Prevent accidental clipping */
+        width: 100%; /* Ensure they try to use available space */
+        max-width: 100%;
+    }
+    /* The main .container will provide padding.
+       If image is still too wide, it means its natural aspect ratio at 100% width
+       of the padded .container is still too large for the viewport height,
+       or there's another constraint. */
+}
+
+@media (max-width: 480px) { 
+    .container { padding: 0 10px; } /* Reduced general container padding */
+    .hero-section h1 { font-size: 1.9rem; }
+    .hero-section .tagline { font-size: 1.1rem; }
+    .cta-button { font-size: 0.95rem; padding: 0.8em 1.6em; }
+    .logo { font-size: 1.6rem; }
+    
+    .site-nav {
+        flex-direction: column; 
+        gap: 1em;
+    }
+    .language-switcher {
+        justify-content: center;
+    }
+
+    .hero-content { max-width: 95%; }
+    .comparison-table { font-size: 0.85rem; }
+    .comparison-table th, .comparison-table td { padding: 0.8em; }
+    .icon-feature-list i { font-size: 1.5rem; margin-right: 0.8em; }
+    .icon-feature-list h3 { font-size: 1.05rem; }
+    .icon-feature-list p { font-size: 0.9rem; }
+
+    /* Large Letters on small mobile */
+    body.acc-largeLetters h1 { font-size: calc(1.9rem * 1.2) !important; }
+    body.acc-largeLetters .hero-section .tagline { font-size: calc(1.1rem * 1.2) !important; }
+    body.acc-largeLetters .cta-button { font-size: calc(0.95rem * 1.2) !important; }
+}
